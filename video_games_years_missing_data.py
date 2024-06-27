@@ -18,18 +18,28 @@ with open('Video_games_missing_years.csv','r') as csv_file:
 count_done = 0
 count = 0
 for game_name in list_of_games_names:
-    game_platform = games_dictionary[game_name]
     url_game_name = game_name.lower().replace(' ', '-').replace(':', '').replace('.', '').replace("'", '').replace('!', '').replace('/', '').replace('fifa-soccer', 'fifa')
     url = f'https://rawg.io/games/{url_game_name}'
     html_text = requests.get(url).text
     soup = BeautifulSoup(html_text, 'lxml')
     info = soup.find('div', class_ = "game__meta-text", itemprop="datePublished")
     if info == None:
-        print(game_name, 'N/A')
+        game_row_data= [[game_name, 'N/A']]
+        file = open('video_games_years.csv', 'a', newline='')
+        writer = csv.writer(file)
+        writer.writerows(game_row_data)
+        file.close()
     else:
         count_done += 1
         date_release = info.text
         lenght_of_date = len(date_release)
         year = date_release[lenght_of_date-4::]
+        game_row_data= [[game_name, year]]
+        file = open('video_games_years.csv', 'a', newline='')
+        writer = csv.writer(file)
+        writer.writerows(game_row_data)
+        file.close()
+
     count += 1
-print(count_done/count * 100%)
+    succes_rate = count_done/count * 100
+print(f'\n{round(succes_rate,2)}% of data was sucesfully found')
