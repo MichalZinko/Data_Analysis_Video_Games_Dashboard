@@ -5,7 +5,7 @@ import csv
 
 # loop that creates list of csv file
 # open csv file
-with open('Missing_years.csv','r') as csv_file:
+with open('missing_years.csv','r') as csv_file:
     content = csv.reader(csv_file)
     list_of_games_names = []
     for line in content:
@@ -27,7 +27,7 @@ for game_name in list_of_games_names:
 #checking if data exists and adding, to the csv file N/A if not and year if it exists 
     if info == None:
         game_row_data= [[game_name, 'N/A']]
-        file = open('video_games_years.csv', 'a', newline='')
+        file = open('found_years.csv', 'a', newline='')
         writer = csv.writer(file)
         writer.writerows(game_row_data)
         file.close()
@@ -37,7 +37,7 @@ for game_name in list_of_games_names:
         lenght_of_date = len(date_release)
         year = date_release[lenght_of_date-4::]
         game_row_data= [[game_name, year]]
-        file = open('video_games_years.csv', 'a', newline='')
+        file = open('found_years.csv', 'a', newline='')
         writer = csv.writer(file)
         writer.writerows(game_row_data)
         file.close()
