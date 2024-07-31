@@ -5,7 +5,7 @@ import csv
 
 # loop that creates list of csv file
 # open csv file
-with open('Video_games_missing_years.csv','r') as csv_file:
+with open('Missing_years.csv','r') as csv_file:
     content = csv.reader(csv_file)
     list_of_games_names = []
     for line in content:
